@@ -8,28 +8,26 @@ import com.company.infrastructure.logger.StdTestLogger;
 import com.company.infrastructure.logger.TestLogger;
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.WebDriver;
 
 public abstract class TestBase {
 
-    protected String browser;
-    private WebDriverManager wdm;
+    protected WebDriver browser;
+    private WebDriverManager driverManager;
 
     protected TestLogger logger = getLogger();
 
     @Before
     public void setUp() {
-        logger.log("Starting browser");
-        wdm = new WebDriverManager();
-        browser = wdm.getWebDriver();
-
-        beforeTest();
+        logger.logger("Starting browser...");
+        driverManager = new WebDriverManager();
+        browser = driverManager.getWebDriver();
     }
+
     @After
     public void tearDown() {
-        afterTest();
-
-        logger.log("Closing browser");
-        wdm.closeWebDriver(browser);
+        logger.logger("Closing browser...");
+        driverManager.closeBrouser(browser);
     }
 
     protected void beforeTest() {}
@@ -38,6 +36,6 @@ public abstract class TestBase {
 
     private TestLogger getLogger() {
         return ConfigurationManager.getInstance().getRunOn().equals("local") ?
-                 new StdTestLogger() : new FileTestLogger();
+                new StdTestLogger() : new FileTestLogger();
     }
 }

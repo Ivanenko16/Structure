@@ -2,24 +2,29 @@ package com.company.infrastructure.webdrivermanager.factory;
 
 import com.company.infrastructure.config.ConfigurationManager;
 import com.company.infrastructure.webdrivermanager.enums.BrowserType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 public class LocaleWebDriverFactory implements WebDriverFactory {
 
     @Override
-    public String getWebDriver() {
-        BrowserType driverType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser());
+    public WebDriver getWebDriver() {
+        BrowserType browserType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser().toUpperCase());
 
-        switch (driverType){
+        switch (browserType) {
             case CHROME:
-                return "Local Google Chrome";
+                return new ChromeDriver();
             case FIREFOX:
-                return "Local Mozilla Firefox";
+                return new FirefoxDriver();
             case SAFARI:
-                return "Local Apple Safari";
+                return new SafariDriver();
             case ADGE:
-                return "Local MS Adge";
-                default:
-                    throw new RuntimeException("No such browser");
+                return new EdgeDriver();
+            default:
+                throw new RuntimeException("No such Browser");
         }
     }
 }

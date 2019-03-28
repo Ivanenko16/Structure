@@ -1,16 +1,20 @@
 package com.company.infrastructure.logger;
 
 import java.io.FileWriter;
+import java.io.IOException;
 
-public class FileTestLogger extends TestLogger {
+public class FileTestLogger implements TestLogger {
+
 
     @Override
-    public void log(String msg) {
+    public void logger(String msg) {
+
         try {
-            FileWriter fw = new FileWriter("log.txt", true);
-            fw.append(msg + "\n");
-            fw.close();
-        } catch (Exception ex) {
+            FileWriter writer = new FileWriter("log");
+            writer.append(msg);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 }

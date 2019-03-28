@@ -1,7 +1,6 @@
 package com.company.infrastructure.logger;
 
-public abstract class TestLogger {
+public interface TestLogger {
 
-    public abstract void log(String msg);
-
+    void logger(String msg) ;
 }

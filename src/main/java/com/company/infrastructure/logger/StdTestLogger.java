@@ -3,19 +3,18 @@ package com.company.infrastructure.logger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class StdTestLogger extends TestLogger {
+public class StdTestLogger implements TestLogger{
 
-    int step = 1;
+    int count = 1;
 
     @Override
-    public void log(String msg){
+    public void logger(String message) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
-        String time = sdf.format(new Date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SS");
+        String time = dateFormat.format(new Date());
 
-        String formattedMsg = step + ") " + time + "[" + Thread.currentThread().getName() + "]" + msg;
+        String formattedMessage = count++ +") " + time + "[" + Thread.currentThread().getName() + "]:" + message;
 
-        System.out.println(formattedMsg);
-        step++;
+        System.out.println(formattedMessage);
     }
 }

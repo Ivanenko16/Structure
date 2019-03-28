@@ -2,24 +2,25 @@ package com.company.infrastructure.webdrivermanager.factory;
 
 import com.company.infrastructure.config.ConfigurationManager;
 import com.company.infrastructure.webdrivermanager.enums.BrowserType;
+import org.openqa.selenium.WebDriver;
 
 public class RemoteWebDriverFactory implements WebDriverFactory {
-
     @Override
-    public String getWebDriver() {
-        BrowserType driverType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser());
+    public WebDriver getWebDriver() {
+        BrowserType browserType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser().toUpperCase());
 
-        switch (driverType){
-            case CHROME:
-                return "Remote Google Chrome";
-            case FIREFOX:
-                return "Remote Mozilla Firefox";
-            case SAFARI:
-                return "Remote Apple Safari";
-            case ADGE:
-                return "Remote MS Adge";
-                default:
-                    throw new RuntimeException("No such browser");
-        }
+//        switch (browserType) {
+//            case CHROME:
+//                return new RemoteWebDriver();
+//            case FIREFOX:
+//                return "FireFox";
+//            case SAFARI:
+//                return "Safari";
+//            case EDGE:
+//                return "Edge";
+//            default:
+//                throw new RuntimeException("No such Browser");
+//        }
+        return null;
     }
 }

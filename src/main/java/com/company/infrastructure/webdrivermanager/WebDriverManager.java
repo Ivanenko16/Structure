@@ -6,31 +6,34 @@ import com.company.infrastructure.webdrivermanager.factory.CloudWebDriverFactory
 import com.company.infrastructure.webdrivermanager.factory.LocaleWebDriverFactory;
 import com.company.infrastructure.webdrivermanager.factory.RemoteWebDriverFactory;
 import com.company.infrastructure.webdrivermanager.factory.WebDriverFactory;
+import org.openqa.selenium.WebDriver;
 
 public class WebDriverManager {
 
-    public String getWebDriver(){
+    private WebDriverFactory driverFactory;
 
-        RunOn runON = RunOn.valueOf(ConfigurationManager.getInstance().getRunOn().toUpperCase());
-        WebDriverFactory factory;
+    public WebDriver getWebDriver() {
 
-        switch (runON){
+        RunOn runOn = RunOn.valueOf(ConfigurationManager.getInstance().getRunOn().toUpperCase());
+
+        switch (runOn) {
             case LOCAL:
-                factory = new LocaleWebDriverFactory();
-                break;
-            case REMOTE:
-                factory = new RemoteWebDriverFactory();
+                driverFactory = new LocaleWebDriverFactory();
                 break;
             case CLOUD:
-                factory = new CloudWebDriverFactory();
+                driverFactory = new CloudWebDriverFactory();
                 break;
-                default:
-                    throw new RuntimeException("No such env");
-
+            case REMOTE:
+                driverFactory = new RemoteWebDriverFactory();
+                break;
+            default:
+                throw new RuntimeException("No such browser");
         }
-        return factory.getWebDriver();
+        return driverFactory.getWebDriver();
     }
-    public  void closeWebDriver(String webDriver) {
-        System.out.println("Closing " + webDriver);
+
+
+    public void closeBrouser(WebDriver webDriver) {
+        if (webDriver != null) webDriver.quit();
     }
 }

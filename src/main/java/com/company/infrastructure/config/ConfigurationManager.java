@@ -1,35 +1,35 @@
 package com.company.infrastructure.config;
 
-public class ConfigurationManager {
+public final class ConfigurationManager {
 
     private static ConfigurationManager instance;
-    private ConfigurationManager() {}
 
-    public static ConfigurationManager getInstance() {
-        if (instance == null)
+    private ConfigurationManager() { }
+
+    public static synchronized ConfigurationManager getInstance() {
+        if (instance == null) {
             instance = new ConfigurationManager();
-
+        }
         return instance;
-
     }
 
-
     public String getTestBrowser() {
-        return getEnviromentVariableOrDefault("testBrowser", "chrome");
 
+        return getEnvironmentVariableOrDefault("testBrowser", "chrome");
     }
 
     public String getTestEnv() {
-        return getEnviromentVariableOrDefault("testEnv", "production");
 
+        return getEnvironmentVariableOrDefault("testEnvironment", "production");
     }
 
-    public  String getRunOn() {
-        return getEnviromentVariableOrDefault("runOn", "local");
+    public String getRunOn() {
+        return getEnvironmentVariableOrDefault("runOn", "local");
     }
 
+    private String getEnvironmentVariableOrDefault(String envVariable, String defaultValue) {
 
-    private String getEnviromentVariableOrDefault(String envaVar, String defaultValue) {
-        return System.getenv(envaVar) != null ? System.getenv(envaVar) : defaultValue;
+        return System.getenv(envVariable) !=null ?
+                System.getenv(envVariable) : defaultValue;
     }
 }

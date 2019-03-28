@@ -2,24 +2,27 @@ package com.company.infrastructure.webdrivermanager.factory;
 
 import com.company.infrastructure.config.ConfigurationManager;
 import com.company.infrastructure.webdrivermanager.enums.BrowserType;
+import org.openqa.selenium.WebDriver;
 
 public class CloudWebDriverFactory implements WebDriverFactory {
 
-    @Override
-    public String getWebDriver() {
-        BrowserType driverType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser());
 
-        switch (driverType){
-            case CHROME:
-                return "Cloud Google Chrome";
-            case FIREFOX:
-                return "Cloud Mozilla Firefox";
-            case SAFARI:
-                return "Cloud Apple Safari";
-            case ADGE:
-                return "Cloud MS Adge";
-                default:
-                    throw new RuntimeException("No such browser");
-        }
+    @Override
+    public WebDriver getWebDriver() {
+        BrowserType browserType = BrowserType.valueOf(ConfigurationManager.getInstance().getTestBrowser().toUpperCase());
+
+//        switch (browserType) {
+//            case CHROME:
+//                return "Google Chrome";
+//            case FIREFOX:
+//                return "FireFox";
+//            case SAFARI:
+//                return "Safari";
+//            case EDGE:
+//                return "Edge";
+//            default:
+//                throw new RuntimeException("No such Browser");
+//        }
+        return null;
     }
 }
